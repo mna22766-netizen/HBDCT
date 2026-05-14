@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Happy BirthdayCT.♡</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  overflow-x:hidden;
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(to bottom,#fff7f2,#fff0f5);
+}
+
+/* animations */
+
+.floating{
+  animation:float 3s ease-in-out infinite;
+}
+
+.parallax{
+  animation:parallaxFloat 6s ease-in-out infinite;
+}
+
+.sparkle{
+  animation:sparkle 2s infinite alternate;
+}
+
+.fadein{
+  animation:fadeIn 2s ease-in-out;
+}
+
+.typing{
+  overflow:hidden;
+  border-right:.15em solid pink;
+  white-space:nowrap;
+  animation:
+  typing 4s steps(40,end),
+  blink .75s step-end infinite;
+}
+
+.match{
+  animation:pop .4s ease;
+}
+
+.lace{
+  background-image:
+  radial-gradient(circle,
+  rgba(255,255,255,0.8) 20%,
+  transparent 20%);
+  background-size:20px 20px;
+}
+
+/* keyframes */
+
+@keyframes float{
+  0%,100%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-10px);
+  }
+}
+
+@keyframes parallaxFloat{
+  0%,100%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-20px);
+  }
+}
+
+@keyframes sparkle{
+  from{
+    opacity:0.5;
+    transform:scale(1);
+  }
+  to{
+    opacity:1;
+    transform:scale(1.2);
+  }
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes typing{
+  from{
+    width:0;
+  }
+  to{
+    width:100%;
+  }
+}
+
+@keyframes blink{
+  from,to{
+    border-color:transparent;
+  }
+  50%{
+    border-color:pink;
+  }
+}
+
+@keyframes pop{
+  0%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.2);
+  }
+  100%{
+    transform:scale(1);
+  }
+}
+
+/* floating stars */
+
+.star{
+  position:fixed;
+  color:white;
+  pointer-events:none;
+  opacity:.8;
+  animation:starMove linear infinite;
+}
+
+@keyframes starMove{
+  from{
+    transform:translateY(100vh);
+  }
+  to{
+    transform:translateY(-120vh);
+  }
+}
+
+</style>
+</head>
+
+<body class="text-[#5c4b51] relative lace">
+
+<!-- stars -->
+<div id="stars"></div>
+
+<!-- music button -->
+
+<button
+id="musicBtn"
+class="fixed top-5 right-5 z-50 bg-pink-300 hover:bg-pink-400 text-white px-5 py-3 rounded-full shadow-xl transition">
+
+play music 🎵
+
+</button>
+
+<audio id="bgm" loop>
+<source
+src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8e1b2f4.mp3?filename=dreamy-background-ambience-110997.mp3"
+type="audio/mpeg">
+</audio>
+
+<!-- decorations -->
+
+<div class="absolute top-10 left-10 text-4xl floating sparkle">
+☁️
+</div>
+
+<div class="absolute top-24 right-20 text-3xl sparkle parallax">
+✨
+</div>
+
+<div class="absolute top-52 left-1/4 text-2xl sparkle">
+⭐
+</div>
+
+<div class="absolute bottom-40 right-1/4 text-3xl floating">
+🌙
+</div>
+
+<div class="absolute top-20 left-1/3 text-2xl floating">
+⭐
+</div>
+
+<div class="absolute top-40 right-1/4 text-xl floating">
+✨
+</div>
+
+<div class="absolute bottom-52 left-1/4 text-2xl floating">
+🌙
+</div>
+
+<!-- loading -->
+
+<div
+id="loadingScreen"
+class="fixed inset-0 bg-[#fff5f8] flex flex-col items-center justify-center z-[99999] transition duration-500">
+
+<div class="text-6xl floating mb-6">
+🎂
+</div>
+
+<p class="text-2xl text-pink-400 font-bold">
+loading cute memories...
+</p>
+
+</div>
+
+<!-- heart effect -->
+
+<script>
+
+document.addEventListener('click', function(e) {
+
+  const endingSection =
+    document.getElementById('endingSection');
+
+  if (
+    !endingSection ||
+    endingSection.classList.contains('hidden')
+  ) return;
+
+  const emojis = [
+    '💖','💕','💗','💞','🎂','✨'
+  ];
+
+  for (let i = 0; i < 18; i++) {
+
+    const heart =
+      document.createElement('div');
+
+    heart.innerHTML =
+      emojis[Math.floor(
+        Math.random() * emojis.length
+      )];
+
+    heart.style.position = 'fixed';
+
+    heart.style.left =
+      e.clientX + 'px';
+
+    heart.style.top =
+      e.clientY + 'px';
+
+    heart.style.fontSize =
+      Math.random() * 25 + 25 + 'px';
+
+    heart.style.pointerEvents = 'none';
+
+    heart.style.transition =
+      'all 2.5s ease-out';
+
+    heart.style.zIndex = '9999';
+
+    heart.style.filter =
+      'drop-shadow(0 0 10px rgba(255,105,180,0.6))';
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+
+      const x =
+        (Math.random() - 0.5) * 900;
+
+      const y =
+        -Math.random() * 900;
+
+      heart.style.transform =
+      `translate(${x}px, ${y}px)
+       scale(1.8)
+       rotate(${Math.random()*360}deg)`;
+
+      heart.style.opacity = '0';
+
+    }, 20);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 2500);
+
+  }
+
+});
+
+</script>
+
+<!-- hero -->
+
+<section class="min-h-screen flex items-center justify-center px-6 py-20">
+
+<div
+class="bg-white/90 backdrop-blur-md border-[3px] border-dashed border-pink-200 rounded-[40px] p-8 shadow-2xl max-w-3xl text-center relative fadein overflow-hidden">
+
+<div
+class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_left,_#ffdbe8,_transparent_40%)]">
+</div>
+
+<div
+class="absolute top-0 left-0 w-full h-6 bg-repeat-x opacity-60"
+style="background-image:url('https://www.transparenttextures.com/patterns/lace.png')">
+</div>
+
+<!-- badge -->
+
+<div
+class="absolute top-3 left-5 bg-pink-200 text-white px-4 py-1 rounded-full text-sm shadow z-20">
+
+my favorite person ♡
+
+</div>
+
+<h1 class="text-5xl md:text-6xl font-bold mb-5 text-pink-400 floating">
+
+Happy Birthday 🎂
+
+</h1>
+
+<p
+class="text-2xl text-pink-300 mb-6 font-semibold typing mx-auto w-fit">
+
+Wishing you the best day ever 💛
+
+</p>
+
+<!-- scratch card -->
+
+<div
+class="bg-[#fff2f6] p-5 rounded-[35px] border-2 border-white shadow-2xl relative mb-8 max-w-2xl mx-auto">
+
+<div
+class="absolute -top-3 left-4 bg-pink-200 text-white px-4 py-1 rounded-full text-xs shadow">
+
+scratch card ♡
+
+</div>
+
+<p class="text-pink-400 text-sm mb-4 tracking-wide">
+
+scratch to reveal our memory ✨
+
+</p>
+
+<div
+class="relative w-full h-[420px] rounded-[28px] overflow-hidden shadow-xl">
+
+<img
+src="https://uploads.onecompiler.io/44p55m3ch/44p5m3pyp/2523.jpg"
+class="absolute inset-0 w-full h-full object-cover"
+/>
+
+<canvas
+id="scratchCanvas"
+class="absolute inset-0 w-full h-full cursor-pointer">
+</canvas>
+
+</div>
+</div>
+
+<p class="text-lg leading-relaxed fadein">
+
+Happy Birthday, Captain! Seeing you grow into such a
+capable person is truly inspiring. Wish you absolute happiness
+and great success in whatever you do. May all your dreams come true
+and every goal be achieved. Keep shining, you've got this!
+Sending you my warmest wishes and all my love 💛
+
+</p>
+
+</div>
+</section>
+
+<!-- notes -->
+
+<section class="px-6 py-10 max-w-5xl mx-auto">
+
+<h2 class="text-4xl font-bold text-center mb-10">
+
+tiny little notes 🧸
+
+</h2>
+
+<div class="grid md:grid-cols-3 gap-6">
+
+<div
+class="bg-white rounded-[30px] p-6 shadow-lg border border-pink-100 rotate-[-1deg] hover:rotate-0 transition">
+
+<div class="text-4xl mb-4">🌷</div>
+
+<p class="text-lg">
+Eat well and stay healthy!
+</p>
+
+</div>
+
+<div
+class="bg-white rounded-[30px] p-6 shadow-lg border border-pink-100 rotate-[1deg] hover:rotate-0 transition">
+
+<div class="text-4xl mb-4">☁️</div>
+
+<p class="text-lg">
+Wishing you good health!
+</p>
+
+</div>
+
+<div
+class="bg-white rounded-[30px] p-6 shadow-lg border border-pink-100 rotate-[-1deg] hover:rotate-0 transition">
+
+<div class="text-4xl mb-4">✨</div>
+
+<p class="text-lg">
+Sweet dreams every single night!
+</p>
+
+</div>
+
+</div>
+</section>
+
+<!-- footer -->
+
+<footer class="text-center py-10 text-sm text-[#9f8f95] sparkle">
+
+Best wishes on your birthday! ✨
+
+</footer>
+
+<!-- game button -->
+
+<section class="text-center py-10">
+
+<button
+onclick="showGame()"
+class="bg-pink-300 hover:bg-pink-400 text-white px-8 py-4 rounded-full text-xl shadow-xl transition floating">
+
+next page 🎮
+
+</button>
+
+</section>
+
+<!-- game section -->
+
+<section
+id="gameSection"
+class="hidden min-h-screen px-6 py-20 text-center">
+
+<h2 class="text-5xl font-bold text-pink-400 mb-4">
+
+fruit matching game 🍓
+
+</h2>
+
+<p class="mb-10 text-lg">
+
+จับคู่ผลไม้ให้ครบเลยน้า ✨
+
+</p>
+
+<div
+class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
+id="gameBoard">
+</div>
+
+<button
+id="finishBtn"
+onclick="showEnding()"
+class="hidden mt-10 bg-yellow-300 hover:bg-yellow-400 px-8 py-4 rounded-full text-lg shadow-xl">
+
+go to final page 💌
+
+</button>
+
+</section>
+
+<!-- ending -->
+
+<section
+id="endingSection"
+class="hidden min-h-screen flex items-center justify-center px-6 py-20">
+
+<div
+class="bg-white rounded-[40px] shadow-2xl border-[3px] border-dashed border-pink-200 p-10 max-w-3xl text-center fadein relative overflow-hidden">
+
+<div class="absolute top-6 left-6 text-3xl floating">
+⭐
+</div>
+
+<div class="absolute top-10 right-10 text-4xl floating">
+💛
+</div>
+
+<div class="absolute bottom-8 left-10 text-3xl floating">
+☁️
+</div>
+
+<div class="absolute bottom-10 right-8 text-4xl floating">
+🎀
+</div>
+
+<h2 class="text-5xl font-bold text-pink-400 mb-8">
+
+thank you ♡
+
+</h2>
+
+<p class="text-xl leading-relaxed mb-6">
+
+Happy Birthday นะคะ ✨
+<br>
+วันเกิดปีนี้ขอให้เธอได้เจอแต่เรื่องดีๆ
+ให้ยิ้มได้กว้างๆ ขอให้ความเหนื่อยล้าของปีที่ผ่านมาหายไปเป็นปลิดทิ้งเลยนะ ☁️
+
+</p>
+
+<p class="text-lg leading-relaxed mb-6">
+
+เก่งมากแล้วที่เติบโตมาได้อย่างดีขนาดนี้
+ขอให้ปีนี้โลกใจดีกับเธอเยอะๆ
+มีเวลาได้ทำสิ่งที่ชอบแบบไม่ต้องกังวลอะไร 🌷
+<br><br>
+ส่วนเราก็จะคอยเป็นพื้นที่ปลอดภัย
+และอยู่ซัพพอร์ตเธอตรงนี้เสมอนะ
+คุณคนเก่ง 🌸😊🤍
+
+</p>
+
+<p class="text-2xl text-pink-300 font-semibold">
+
+happy birthday to my favorite person 🎂✨
+
+</p>
+
+</div>
+</section>
+
+<!-- scripts -->
+
+<script>
+
+/* loading */
+
+window.addEventListener('load',()=>{
+
+  const loading =
+  document.getElementById('loadingScreen');
+
+  loading.style.opacity='0';
+
+  setTimeout(()=>{
+
+    loading.style.display='none';
+
+  },400);
+
+});
+
+/* stars */
+
+const stars=document.getElementById('stars');
+
+for(let i=0;i<30;i++){
+
+  const star=document.createElement('div');
+
+  star.className='star';
+
+  star.innerHTML='✨';
+
+  star.style.left=Math.random()*100+'vw';
+
+  star.style.animationDuration=
+  (Math.random()*8+6)+'s';
+
+  star.style.fontSize=
+  (Math.random()*20+10)+'px';
+
+  stars.appendChild(star);
+
+}
+
+/* music */
+
+const musicBtn=document.getElementById('musicBtn');
+const bgm=document.getElementById('bgm');
+
+let isPlaying=false;
+
+musicBtn.addEventListener('click',()=>{
+
+  if(!isPlaying){
+
+    bgm.play();
+
+    musicBtn.innerHTML='pause music ⏸';
+
+    isPlaying=true;
+
+  }else{
+
+    bgm.pause();
+
+    musicBtn.innerHTML='play music 🎵';
+
+    isPlaying=false;
+
+  }
+
+});
+
+/* scratch card */
+
+window.addEventListener('load',()=>{
+
+const canvas=document.getElementById('scratchCanvas');
+
+const ctx=canvas.getContext('2d');
+
+function resizeCanvas(){
+
+  canvas.width=canvas.offsetWidth;
+  canvas.height=canvas.offsetHeight;
+
+  ctx.globalCompositeOperation='source-over';
+
+  ctx.fillStyle='#f9a8d4';
+
+  ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  ctx.fillStyle='white';
+
+  ctx.font='bold 34px Arial';
+
+  ctx.textAlign='center';
+
+  ctx.fillText(
+    'scratch me ✨',
+    canvas.width/2,
+    canvas.height/2
+  );
+
+}
+
+resizeCanvas();
+
+window.addEventListener('resize',resizeCanvas);
+
+canvas.style.touchAction='none';
+
+let isDrawing=false;
+
+function scratch(x,y){
+
+  ctx.globalCompositeOperation=
+  'destination-out';
+
+  ctx.beginPath();
+
+  ctx.arc(
+    x,
+    y,
+    35,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+}
+
+canvas.addEventListener(
+'mousedown',
+()=>isDrawing=true
+);
+
+canvas.addEventListener(
+'mouseup',
+()=>isDrawing=false
+);
+
+canvas.addEventListener(
+'mouseleave',
+()=>isDrawing=false
+);
+
+canvas.addEventListener('mousemove',(e)=>{
+
+  if(!isDrawing) return;
+
+  const rect=
+  canvas.getBoundingClientRect();
+
+  scratch(
+    e.clientX-rect.left,
+    e.clientY-rect.top
+  );
+
+});
+
+canvas.addEventListener(
+'touchstart',
+()=>isDrawing=true
+);
+
+canvas.addEventListener(
+'touchend',
+()=>isDrawing=false
+);
+
+canvas.addEventListener('touchmove',(e)=>{
+
+  e.preventDefault();
+
+  if(!isDrawing) return;
+
+  const rect=
+  canvas.getBoundingClientRect();
+
+  const touch=e.touches[0];
+
+  scratch(
+    touch.clientX-rect.left,
+    touch.clientY-rect.top
+  );
+
+});
+
+});
+
+/* game */
+
+function showGame(){
+
+  document
+  .getElementById('gameSection')
+  .classList.remove('hidden');
+
+  window.scrollTo({
+    top:
+    document.getElementById('gameSection')
+    .offsetTop,
+
+    behavior:'smooth'
+  });
+
+}
+
+const fruits=[
+'🍓','🍓',
+'🍌','🍌',
+'🍎','🍎',
+'🥕','🥕'
+];
+
+fruits.sort(()=>Math.random()-0.5);
+
+const board=
+document.getElementById('gameBoard');
+
+let firstCard=null;
+let secondCard=null;
+let lockBoard=false;
+let matched=0;
+
+fruits.forEach(fruit=>{
+
+  const card=
+  document.createElement('div');
+
+  card.className=
+  'bg-white h-28 rounded-[30px] shadow-xl flex items-center justify-center text-5xl cursor-pointer hover:scale-105 transition';
+
+  card.dataset.fruit=fruit;
+
+  card.innerHTML='❔';
+
+  card.addEventListener('click',()=>{
+
+    if(
+      lockBoard ||
+      card.innerHTML!=='❔'
+    ) return;
+
+    card.innerHTML=fruit;
+
+    if(!firstCard){
+
+      firstCard=card;
+
+      return;
+
+    }
+
+    secondCard=card;
+
+    lockBoard=true;
+
+    if(
+      firstCard.dataset.fruit===
+      secondCard.dataset.fruit
+    ){
+
+      matched++;
+
+      firstCard.classList.add('match');
+      secondCard.classList.add('match');
+
+      firstCard=null;
+      secondCard=null;
+
+      lockBoard=false;
+
+      if(matched===4){
+
+        document
+        .getElementById('finishBtn')
+        .classList.remove('hidden');
+
+      }
+
+    }else{
+
+      setTimeout(()=>{
+
+        firstCard.innerHTML='❔';
+        secondCard.innerHTML='❔';
+
+        firstCard=null;
+        secondCard=null;
+
+        lockBoard=false;
+
+      },800);
+
+    }
+
+  });
+
+  board.appendChild(card);
+
+});
+
+/* ending */
+
+function showEnding(){
+
+  document
+  .getElementById('endingSection')
+  .classList.remove('hidden');
+
+  window.scrollTo({
+
+    top:
+    document.getElementById('endingSection')
+    .offsetTop,
+
+    behavior:'smooth'
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
